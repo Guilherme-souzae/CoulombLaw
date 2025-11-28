@@ -8,6 +8,8 @@ public class ChargeManager : MonoBehaviour
 
     private List<Rigidbody2D> charges = new List<Rigidbody2D>();
 
+    public static ChargeManager Instance { get; private set; }
+
     // ---------- ESCALONAMENTOS ----------
     private const float MASS_SCALE = 1e30f;
     private const float CHARGE_SCALE = 1e19f;
@@ -17,6 +19,11 @@ public class ChargeManager : MonoBehaviour
 
     // Distância mínima para evitar explosões numéricas
     private const float MIN_DIST = 0.25f;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
@@ -28,6 +35,8 @@ public class ChargeManager : MonoBehaviour
         {
             SpawnCharge(-1.6e-19f, 9.11e-31f);
         }
+
+        Debug.Log(charges.Count);
     }
 
 
@@ -76,5 +85,10 @@ public class ChargeManager : MonoBehaviour
                 b.AddForce(-force);
             }
         }
+    }
+
+    public void RemoveCharge(Rigidbody2D charge)
+    {
+        charges.Remove(charge);
     }
 }

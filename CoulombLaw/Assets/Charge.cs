@@ -29,4 +29,10 @@ public class Charge : MonoBehaviour
         // A cor continua igual
         sr.color = scaledCharge > 0 ? Color.red : Color.blue;
     }
+
+    private void OnBecameInvisible()
+    {
+        ChargeManager.Instance.RemoveCharge(rb);
+        Destroy(gameObject);
+    }
 }
